@@ -55,14 +55,14 @@ Kalau kamu punya file `best.onnx` (hasil training), konversi ke TensorRT
 engine **di Jetson Nano** dengan `trtexec`:
 
 ```bash
-cd ~/traffic-sign-project/models
-
 /usr/src/tensorrt/bin/trtexec \
-    --onnx=best.onnx \
-    --saveEngine=best.engine \
+    --onnx=models/best.onnx \
+    --saveEngine=models/best.engine \
     --fp16 \
     --workspace=1024
 ```
+
+Jalankan perintah di atas dari root repositori.
 
 **Penjelasan opsi:**
 
@@ -87,12 +87,14 @@ Tambahkan `--verbose` kalau ingin melihat log lengkap proses konversi.
 Default path di `src/traffic_sign_jetson.py`:
 
 ```python
-ENGINE_PATH = os.path.expanduser(
-    "~/traffic-sign-project/models/best.engine"
+ENGINE_PATH = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+    "models", "best.engine"
 )
 ```
 
-Kalau path-mu berbeda, edit variabel `ENGINE_PATH` di file tersebut.
+Path ini menunjuk ke `models/best.engine` di root repositori secara otomatis,
+tanpa bergantung pada nama folder repositori atau direktori kerja terminal.
 
 ### 2. Verifikasi engine
 
@@ -105,7 +107,7 @@ python3 src/traffic_sign_jetson.py --check
 Output yang diharapkan:
 
 ```text
-Engine: /home/jetson/traffic-sign-project/models/best.engine
+Engine: /home/jetson/UTS_Jetson_Nano_KEL2/models/best.engine
 Engine tersedia: True
 Binding 0: images (1, 3, 320, 320)
 Binding 1: output0 (1, 7, 2100)

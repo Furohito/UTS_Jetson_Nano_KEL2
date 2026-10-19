@@ -25,8 +25,9 @@ import math
 # CONFIGURATION
 # ============================================================
 
-ENGINE_PATH = os.path.expanduser(
-    "~/traffic-sign-project/models/best.engine"
+ENGINE_PATH = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+    "models", "best.engine"
 )
 
 CAMERA_ID = 0

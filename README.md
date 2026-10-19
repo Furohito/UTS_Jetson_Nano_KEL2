@@ -15,8 +15,9 @@ Jetson melalui TensorRT, lalu mengklasifikasikan rambu ke dalam 3 kelas:
 `stop`, `slow`, `go`. Kelas dengan confidence tertinggi yang **stabil selama
 beberapa frame berturut-turut** akan menyalakan LED yang sesuai.
 
-Model sudah tersedia dalam bentuk **`best.engine`** (TensorRT) — cukup diletakkan
-di folder `models/` dan program langsung siap dijalankan.
+Model tersedia di folder `models/` sebagai **`best.engine`** (TensorRT) dan
+**`best.onnx`**. Sesuaikan `ENGINE_PATH` di source code dengan lokasi repositori
+di Jetson sebelum menjalankan program.
 
 ---
 
@@ -122,8 +123,8 @@ sudo apt update && sudo apt upgrade
 ### 2. Clone repositori
 
 ```bash
-git clone https://github.com/Furohito/Jetson_Nano.git
-cd Jetson_Nano
+git clone https://github.com/Furohito/UTS_Jetson_Nano_KEL2.git
+cd UTS_Jetson_Nano_KEL2
 ```
 
 ### 3. Instal dependencies
@@ -134,21 +135,23 @@ sudo apt install -y python3-numpy python3-opencv python3-gi \
     python3-jetson-gpio python3-libnvinfer
 ```
 
-Atau pakai `requirements.txt`:
-
-```bash
-pip3 install -r requirements.txt
-```
+Daftar dependensi Python tersedia di [`requirements.txt`](requirements.txt).
+Untuk Jetson Nano, gunakan paket `apt` di atas agar OpenCV, GStreamer, dan
+TensorRT sesuai dengan JetPack. `requirements.txt` juga mencantumkan
+`ultralytics` untuk kebutuhan ekspor model di host PC; paket tersebut tidak
+dibutuhkan untuk menjalankan inferensi TensorRT pada Jetson.
 
 ### 4. Siapkan model
 
 Letakkan file `best.engine` (sudah tersedia) pada:
 
 ```
-~/traffic-sign-project/models/best.engine
+models/best.engine
 ```
 
-Atau sesuaikan path-nya di `src/traffic_sign_jetson.py` pada variabel `ENGINE_PATH`.
+Path model otomatis dihitung dari lokasi source code, sehingga nama dan lokasi
+folder repositori boleh berbeda. Folder `models/` berada langsung di root
+repositori, sejajar dengan `src/`, `docs/`, dan `images/`.
 
 ### 5. Periksa lingkungan
 
@@ -206,42 +209,107 @@ python3 src/traffic_sign_jetson.py --no-preview --max-frames 300
 
 ## 📂 Struktur Repositori
 
+Berikut isi root repositori GitHub. Tanda `.` berarti root repositori,
+bukan folder tambahan; semua folder dan file berikut berada langsung di dalamnya.
+
 ```
 .
-├── README.md
-├── LICENSE
-├── requirements.txt
-├── .gitignore
-├── src/
-│   └── traffic_sign_jetson.py     # source code utama
-├── models/
-│   ├── README.md                  # info model
-│   └── best.engine                # TensorRT engine (siap pakai)
+├── .vscode/
+│   └── settings.json
 ├── docs/
-│   ├── arsitektur.md              # arsitektur sistem
-│   ├── wiring.md                  # dokumentasi rangkaian
-│   └── pengujian.md               # hasil pengujian
-├── images/                        # gambar & foto
-│   ├── arsitektur.png
-│   ├── wiring.png
-│   ├── dokumentasi-praktikum.jpg
-│   ├── screenshot-deteksi.png
-│   └── screenshot-led-test.png
-└── test-results/
-    └── log-pengujian.txt          # log output program
+│   ├── Arsitektur Sistem dan Dokumentasi Perangkat keras.png
+│   ├── arsitektur.md
+│   ├── pengujian.md
+│   └── wiring.md
+├── images/
+│   ├── praktikum/
+│   │   ├── praktikum_test_code.jpg
+│   │   ├── praktikum_test_rambu.jpg
+│   │   └── praktikum_test_wiring.jpeg
+│   ├── rambu_go_gelap/
+│   │   ├── go_gelap_dekat.jpeg
+│   │   ├── go_gelap_jauh.jpeg
+│   │   └── go_gelap_menengah.jpeg
+│   ├── rambu_go_terang/
+│   │   ├── go_terang_dekat.jpeg
+│   │   ├── go_terang_jauh.jpeg
+│   │   └── go_terang_menengah.jpeg
+│   ├── rambu_slow_gelap/
+│   │   ├── slow_gelap_dekat.jpeg
+│   │   ├── slow_gelap_jauh.jpeg
+│   │   └── slow_gelap_menengah.jpeg
+│   ├── rambu_slow_terang/
+│   │   ├── slow_terang_dekat.jpeg
+│   │   ├── slow_terang_jauh.jpeg
+│   │   └── slow_terang_menengah.jpeg
+│   ├── rambu_stop_gelap/
+│   │   ├── stop_gelap_dekat.jpeg
+│   │   ├── stop_gelap_jauh.jpeg
+│   │   └── stop_gelap_menengah.jpeg
+│   └── rambu_stop_terang/
+│       ├── stop_terang_dekat.jpeg
+│       ├── stop_terang_jauh.jpeg
+│       └── stop_terang_menengah.jpeg
+├── models/
+│   ├── MODELS.md
+│   ├── best.engine
+│   └── best.onnx
+├── src/
+│   ├── traffic_sign_jetson.py
+│   └── traffic_sign_jetson_trial.py
+├── test-results/
+│   └── log-pengujian.txt
+├── LICENSE
+├── README.md
+└── requirements.txt
 ```
+
+Folder internal Git (`.git/`) tidak dirinci pada struktur di atas.
+
+### Source Code dan Dependencies
+
+| File | Fungsi |
+|------|--------|
+| [`src/traffic_sign_jetson.py`](src/traffic_sign_jetson.py) | Program utama: input 320×320, confidence threshold 0.55, stabilisasi 3 frame |
+| [`src/traffic_sign_jetson_trial.py`](src/traffic_sign_jetson_trial.py) | Varian percobaan: input 640×640, confidence threshold 0.35; membutuhkan engine dengan ukuran input yang sesuai |
+| [`requirements.txt`](requirements.txt) | Referensi dependensi Python dan kebutuhan ekspor model |
+| [`models/MODELS.md`](models/MODELS.md) | Dokumentasi model dan konversi ONNX ke TensorRT |
 
 ---
 
 ## 📸 Dokumentasi Visual
 
+### Video Demonstrasi Sistem
+
+Video demonstrasi sistem dapat ditonton melalui tautan berikut:
+
+**[Tonton video demonstrasi di SharePoint](https://universitaspembangu286-my.sharepoint.com/:v:/g/personal/abdurrahman_hakimmakarim_student_upj_ac_id/IQD1MTOX2h-9QK8IOuly1wZPAdk9-SQe82FbnYGsYvjtQLM?e=SBnW1x)**
+
 | File | Deskripsi |
 |------|-----------|
-| `images/arsitektur.png`            | Diagram arsitektur sistem |
-| `images/wiring.png`                | Skema rangkaian LED + Jetson |
-| `images/dokumentasi-praktikum.jpg` | Foto setup Jetson + kamera + LED |
-| `images/screenshot-deteksi.png`    | Screenshot deteksi rambu berjalan |
-| `images/screenshot-led-test.png`   | Screenshot uji LED |
+| [Arsitektur sistem dan perangkat keras](docs/Arsitektur%20Sistem%20dan%20Dokumentasi%20Perangkat%20keras.png) | Diagram arsitektur dan dokumentasi perangkat keras |
+| [Foto wiring](images/praktikum/praktikum_test_wiring.jpeg) | Foto perangkat, modul kamera, breadboard, dan LED |
+| [Foto uji rambu](images/praktikum/praktikum_test_rambu.jpg) | Pelaksanaan pengujian rambu di depan kamera |
+| [Foto pengoperasian program](images/praktikum/praktikum_test_code.jpg) | Dokumentasi pengoperasian program saat praktikum |
+| Folder `images/rambu_{go,slow,stop}_{gelap,terang}/` | 18 foto pengujian: 3 kelas × 2 kondisi cahaya × 3 jarak |
+
+### Arsitektur Sistem dan Dokumentasi Perangkat Keras
+
+![Arsitektur sistem dan dokumentasi perangkat keras](docs/Arsitektur%20Sistem%20dan%20Dokumentasi%20Perangkat%20keras.png)
+
+Diagram memperlihatkan modul kamera stereo pada perangkat. Program saat ini
+mengambil satu stream CSI melalui `CAMERA_ID = 0`, tanpa pemrosesan kedalaman stereo.
+Detail alur perangkat lunak tersedia di [`docs/arsitektur.md`](docs/arsitektur.md).
+
+### Foto Rangkaian
+
+![Perangkat dan rangkaian LED pada breadboard](images/praktikum/praktikum_test_wiring.jpeg)
+
+### Foto Praktikum
+
+| Pengujian rambu | Pengoperasian program |
+|----------------|-----------------------|
+| ![Pengujian rambu](images/praktikum/praktikum_test_rambu.jpg) | ![Pengoperasian program](images/praktikum/praktikum_test_code.jpg) |
 
 ---
 
@@ -250,6 +318,17 @@ python3 src/traffic_sign_jetson.py --no-preview --max-frames 300
 Ringkasan hasil pengujian dan benchmark ada di
 [`docs/pengujian.md`](docs/pengujian.md) dan log mentah di
 [`test-results/log-pengujian.txt`](test-results/log-pengujian.txt).
+
+Dokumentasi foto pengujian tersedia pada tautan berikut:
+
+| Rambu | Cahaya | Dekat | Menengah | Jauh |
+|-------|--------|-------|----------|------|
+| GO | Terang | [Foto](images/rambu_go_terang/go_terang_dekat.jpeg) | [Foto](images/rambu_go_terang/go_terang_menengah.jpeg) | [Foto](images/rambu_go_terang/go_terang_jauh.jpeg) |
+| GO | Gelap | [Foto](images/rambu_go_gelap/go_gelap_dekat.jpeg) | [Foto](images/rambu_go_gelap/go_gelap_menengah.jpeg) | [Foto](images/rambu_go_gelap/go_gelap_jauh.jpeg) |
+| SLOW | Terang | [Foto](images/rambu_slow_terang/slow_terang_dekat.jpeg) | [Foto](images/rambu_slow_terang/slow_terang_menengah.jpeg) | [Foto](images/rambu_slow_terang/slow_terang_jauh.jpeg) |
+| SLOW | Gelap | [Foto](images/rambu_slow_gelap/slow_gelap_dekat.jpeg) | [Foto](images/rambu_slow_gelap/slow_gelap_menengah.jpeg) | [Foto](images/rambu_slow_gelap/slow_gelap_jauh.jpeg) |
+| STOP | Terang | [Foto](images/rambu_stop_terang/stop_terang_dekat.jpeg) | [Foto](images/rambu_stop_terang/stop_terang_menengah.jpeg) | [Foto](images/rambu_stop_terang/stop_terang_jauh.jpeg) |
+| STOP | Gelap | [Foto](images/rambu_stop_gelap/stop_gelap_dekat.jpeg) | [Foto](images/rambu_stop_gelap/stop_gelap_menengah.jpeg) | [Foto](images/rambu_stop_gelap/stop_gelap_jauh.jpeg) |
 
 ---
 

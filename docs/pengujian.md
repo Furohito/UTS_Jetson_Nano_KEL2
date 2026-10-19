@@ -39,7 +39,7 @@ Uji level GPIO selesai.
 Perintah LED MATI telah dikirim.
 ```
 
-📸 Lihat `images/screenshot-led-test.png`.
+📸 Foto rangkaian: [praktikum_test_wiring.jpeg](../images/praktikum/praktikum_test_wiring.jpeg).
 
 ## 3. Uji Deteksi Real-time
 
@@ -83,9 +83,12 @@ python3 src/traffic_sign_jetson.py --no-preview --max-frames 1000
 
 | File | Keterangan |
 |------|------------|
-| `images/dokumentasi-praktikum.jpg` | Foto setup Jetson + kamera + LED saat praktikum |
-| `images/screenshot-deteksi.png`   | Deteksi STOP dengan bounding box |
-| `images/screenshot-led-test.png`  | LED menyala saat uji |
+| [praktikum_test_wiring.jpeg](../images/praktikum/praktikum_test_wiring.jpeg) | Foto setup perangkat, kamera, breadboard, dan LED |
+| [praktikum_test_rambu.jpg](../images/praktikum/praktikum_test_rambu.jpg) | Foto pelaksanaan pengujian rambu |
+| [praktikum_test_code.jpg](../images/praktikum/praktikum_test_code.jpg) | Foto pengoperasian program saat praktikum |
+
+Foto uji GO, SLOW, dan STOP dalam kondisi terang/gelap pada jarak dekat,
+menengah, dan jauh ditautkan pada [tabel dokumentasi di README](../README.md).
 
 ## 7. Log Mentah
 

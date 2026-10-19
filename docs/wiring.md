@@ -2,7 +2,10 @@
 
 ## Diagram Rangkaian
 
-![Wiring LED](../images/wiring.png)
+![Foto perangkat dan rangkaian LED](../images/praktikum/praktikum_test_wiring.jpeg)
+
+Foto di atas menunjukkan susunan perangkat saat praktikum. Pemetaan koneksi
+GPIO yang digunakan program dijelaskan pada diagram dan tabel di bawah.
 
 ```text
                 Jetson Nano (Header 40-pin)

@@ -2,7 +2,10 @@
 
 ## Diagram Blok
 
-![Arsitektur Sistem](../images/arsitektur.png)
+![Arsitektur Sistem](Arsitektur%20Sistem%20dan%20Dokumentasi%20Perangkat%20keras.png)
+
+Foto perangkat memperlihatkan modul kamera stereo. Implementasi program mengambil
+satu stream CSI (`CAMERA_ID = 0`), tanpa pemrosesan kedalaman stereo.
 
 ```text
 ┌─────────────────────────────────────────────────────────────────┐
