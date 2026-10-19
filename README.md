@@ -344,6 +344,6 @@ MIT License — lihat file [`LICENSE`](LICENSE).
 |----|-----------------------------|------------|
 | 1  | Abdurrahman Hakim Makarim   | 2023071010 |
 | 2  | Nurfajrian Abdurrohman      | 2023071045 |
-| 3  | Zaky Naufal Saleh           | 20240708   |
+| 3  | Zaky Naufal Saleh           | 2024071008 |
 | 4  | Ziyan Faiq                  | 2024071014 |
 | 5  | Daffa Rinaldi               | 2024071024 |
