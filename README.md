@@ -255,8 +255,7 @@ bukan folder tambahan; semua folder dan file berikut berada langsung di dalamnya
 │   ├── best.engine
 │   └── best.onnx
 ├── src/
-│   ├── traffic_sign_jetson.py
-│   └── traffic_sign_jetson_trial.py
+│   └── traffic_sign_jetson.py
 ├── test-results/
 │   └── log-pengujian.txt
 ├── LICENSE
@@ -271,7 +270,6 @@ Folder internal Git (`.git/`) tidak dirinci pada struktur di atas.
 | File | Fungsi |
 |------|--------|
 | [`src/traffic_sign_jetson.py`](src/traffic_sign_jetson.py) | Program utama: input 320×320, confidence threshold 0.55, stabilisasi 3 frame |
-| [`src/traffic_sign_jetson_trial.py`](src/traffic_sign_jetson_trial.py) | Varian percobaan: input 640×640, confidence threshold 0.35; membutuhkan engine dengan ukuran input yang sesuai |
 | [`requirements.txt`](requirements.txt) | Referensi dependensi Python dan kebutuhan ekspor model |
 | [`models/MODELS.md`](models/MODELS.md) | Dokumentasi model dan konversi ONNX ke TensorRT |
 
