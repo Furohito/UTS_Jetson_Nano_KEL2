@@ -79,7 +79,7 @@ di Jetson sebelum menjalankan program.
 ```
 
 1. **Capture** — `nvarguscamerasrc` mengambil frame dari sensor IMX219.
-2. **Preprocess** — resize letterbox ke 320×320, normalisasi, ubah ke CHW & RGB.
+2. **Preprocess** — resize letterbox ke 640×640, normalisasi, ubah ke CHW & RGB.
 3. **Inference** — engine TensorRT dijalankan via `context.execute_v2()`.
 4. **Postprocess** — decode output YOLOv8, filter confidence, NMS per kelas.
 5. **Stability Check** — kelas harus stabil `STABLE_FRAMES` kali berturut-turut.
