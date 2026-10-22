@@ -269,7 +269,7 @@ Folder internal Git (`.git/`) tidak dirinci pada struktur di atas.
 
 | File | Fungsi |
 |------|--------|
-| [`src/traffic_sign_jetson.py`](src/traffic_sign_jetson.py) | Program utama: input 320×320, confidence threshold 0.55, stabilisasi 3 frame |
+| [`src/traffic_sign_jetson.py`](src/traffic_sign_jetson.py) | Program utama: input 640×640, confidence threshold 0.35, stabilisasi 3 frame |
 | [`requirements.txt`](requirements.txt) | Referensi dependensi Python dan kebutuhan ekspor model |
 | [`models/MODELS.md`](models/MODELS.md) | Dokumentasi model dan konversi ONNX ke TensorRT |
 
